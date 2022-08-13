@@ -1,5 +1,5 @@
 // Example:
-// advancedResults(Bootcamp, 'courses')
+// advancedResults(Educator, 'students')
 const advancedResults = (model, populate) => async (req, res, next) => {
 
     let query;

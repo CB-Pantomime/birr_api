@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const StudentSchema = new mongoose.Schema({
 
+    // educatorId: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Educator',
+    //     required: true
+    // },
     name: {
         type: String,
         required: [true, 'Please add a name'],
@@ -20,11 +25,6 @@ const StudentSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    },
-    educatorId: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Educator',
-        required: true
     }
 });
 

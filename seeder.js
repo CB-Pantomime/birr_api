@@ -10,7 +10,7 @@ dotenv.config({ path: './config/config.env' });
 
 // Load models
 const Educator = require('./models/Educator');
-
+const Student = require('./models/Student');
 
 // Connect to DB
 mongoose.connect(process.env.MONGO_URI);
@@ -32,6 +32,11 @@ const educators = JSON.parse(
     fs.readFileSync(`${__dirname}/data/educators.json`, 'utf-8')
     );
 
+const students = JSON.parse(
+
+    fs.readFileSync(`${__dirname}/data/students.json`, 'utf-8')
+    
+    );
 
 // ** IMPORT INTO DB
 const importData = async () => {
@@ -40,7 +45,7 @@ const importData = async () => {
         // we are not going to need to access it later
         // it's just going to run 
         await Educator.create(educators);
-      
+        await Student.create(students);
         console.log('--> --> Data imported <-- <--'.brightYellow.bold.italic.inverse);
 
         // The process core module provides a handy method that allows you to programmatically exit from a Node.js program: process.exit().
@@ -58,6 +63,7 @@ const importData = async () => {
 const deleteData = async () => {
     try{
         await Educator.deleteMany();
+        await Student.deleteMany();
         console.log('--> --> Data dee-stroyed <-- <--'.bgBlack.brightRed.underline);
         process.exit();
     } catch (err){
