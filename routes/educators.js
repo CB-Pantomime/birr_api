@@ -9,6 +9,9 @@ const {
     deleteEducator
 } = require('../controllers/educators.js');
 
+// const Educator = require('../models/Educator.js');
+// const advancedResults = require('../middleware/advancedResults.js');
+// advancedResults(Educator, 'educator'),
 const router = express.Router();
 
 router

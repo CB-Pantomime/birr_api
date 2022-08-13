@@ -1,20 +1,17 @@
-
-
 const path = require('path');
-
+const advancedResults = require('../middleware/advancedResults');
 const asyncHandler = require('../middleware/async');
-
 const Educator = require('../models/Educator');
 
 // @desc        Get all educators
 // @route       GET /api/v1/educators
 // @access      Private
 exports.getEducators = asyncHandler( async (req, res, next) => {
+    // await MyModel.find({});
+    const educators = await Educator.find()
     res.status(200).json({
         success: true,
-        data: {
-            message: 'Read all educators. Admin only'
-        }
+        data: educators
     });
 });
 
@@ -24,12 +21,14 @@ exports.getEducators = asyncHandler( async (req, res, next) => {
 // @route       GET /api/v1/educators/:id
 // @access      Private
 exports.getEducator = asyncHandler( async (req, res, next) => {
+
+    const educator = await Educator.findById(req.params.id);
+    
     res.status(200).json({
         success: true,
-        data: {
-            message: 'Read single educators. Admin only'
-        }
+        data: educator 
     });
+
 });
 
 
@@ -39,17 +38,10 @@ exports.getEducator = asyncHandler( async (req, res, next) => {
 // @access      Private
 exports.createEducator = asyncHandler( async (req, res, next) => {
 
-
-
-
-
-
-
-
     const educator = await Educator.create(req.body);
 
     res
-    .status(200).json({
+    .status(201).json({
         success: true,
         data: educator
     });
@@ -62,12 +54,19 @@ exports.createEducator = asyncHandler( async (req, res, next) => {
 // @route       PUT /api/v1/educators/:id
 // @access      Private
 exports.updateEducator = asyncHandler( async (req, res, next) => {
-       res.status(200).json({
+
+    const educator = await Educator.findByIdAndUpdate(req.params.id, req.body, 
+        {
+        new: true,
+        // read about runValidators
+        runValidators: true
+        });
+    
+    res.status(200).json({
         success: true,
-        data: {
-            message: `Update educator w/ ${req.params.id} as logged in/auth educator.`
-        }
+        data: educator 
     });
+
 });
 
 
@@ -75,12 +74,14 @@ exports.updateEducator = asyncHandler( async (req, res, next) => {
 // @route       DELETE /api/v1/educators/:id
 // @access      Private
 exports.deleteEducator = asyncHandler( async (req, res, next) => {
+
+    const educator = await Educator.findById(req.params.id);
+
+    educator.remove();
     res.status(200).json({
-     success: true,
-     data: {
-         message: `Delete educator w/ ${req.params.id} as logged in/auth educator.`
-     }
- });
+        success: true,
+        data: {}  
+    });
 });
 
 
