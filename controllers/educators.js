@@ -4,7 +4,7 @@ const path = require('path');
 
 const asyncHandler = require('../middleware/async');
 
-
+const Educator = require('../models/Educator');
 
 // @desc        Get all educators
 // @route       GET /api/v1/educators
@@ -38,11 +38,20 @@ exports.getEducator = asyncHandler( async (req, res, next) => {
 // @route       POST /api/v1/educators
 // @access      Private
 exports.createEducator = asyncHandler( async (req, res, next) => {
-    res.status(200).json({
+
+
+
+
+
+
+
+
+    const educator = await Educator.create(req.body);
+
+    res
+    .status(200).json({
         success: true,
-        data: {
-            message: 'Create educator. On sign up or by admin.'
-        }
+        data: educator
     });
 });
 
