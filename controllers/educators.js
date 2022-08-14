@@ -33,10 +33,26 @@ exports.getEducator = asyncHandler( async (req, res, next) => {
 
 
 
+// @desc        Get all students belonging to educator
+// @route       GET /api/v1/educators/:id/allStudents
+// @access      Private
+exports.getAllStudentsOneEducator = asyncHandler( async (req, res, next) => {
+
+    const allStudents = await Educator.findById(req.params.id).populate('students');
+    
+    res.status(200).json({
+        success: true,
+        data: allStudents.students
+    });
+
+});
+
+
 // @desc        Create educator
 // @route       POST /api/v1/educators
-// @access      Private
+// @access      Private - ADMIN ONLY
 exports.createEducator = asyncHandler( async (req, res, next) => {
+
 
     const educator = await Educator.create(req.body);
 

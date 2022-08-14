@@ -38,12 +38,17 @@ exports.getStudent = asyncHandler( async (req, res, next) => {
 // @access      Private
 exports.createStudent = asyncHandler( async (req, res, next) => {
 
-    const student = await Student.create(req.body);
+    
+     // This should be functional w/ auth ware up and running
+     // Add logged in user/educator to req.body
+     req.body.educator = req.educator.id;
+    
+    const newStudent = await Student.create(req.body);
 
     res
     .status(201).json({
         success: true,
-        data: student
+        data: newStudent
     });
 });
 

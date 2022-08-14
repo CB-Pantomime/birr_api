@@ -6,7 +6,8 @@ const {
     getEducator, 
     createEducator,
     updateEducator,
-    deleteEducator
+    deleteEducator,
+    getAllStudentsOneEducator
 } = require('../controllers/educators.js');
 
 // const Educator = require('../models/Educator.js');
@@ -25,5 +26,10 @@ router
         .put(updateEducator)
         .delete(deleteEducator)
 
+router
+    .route('/:id/allStudents')
+        .get(getAllStudentsOneEducator);
 
+
+        
 module.exports = router;

@@ -3,18 +3,28 @@
 
 [
 	{
+		"_id": "5d713995b721c3bb38c1f5d0",
 		"name": "Kevin Appleseed",
 		"email": "kevin@gmail.com",
         "role": "educator",
         "password": "123456",
-		"classroomName": "Kevin's World"
+		"students": 
+			
+				"5d7a514b5d2c12c7449be020"
+			
+		
 	},
     {
+		"_id": "5d713a66ec8f2b88b8f830b8",
 		"name": "Jamey Braden",
 		"email": "jamey@gmail.com",
         "role": "educator",
         "password": "123456",
-		"classroomName": "Jamey's World"
+		"students": 
+			
+			"5d7a514b5d2c12c7449be021"
+		
+	
 	}
 ]
 

@@ -18,12 +18,12 @@ const FreePoemSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     } ,
-    educatorId: {
+    educator: {
         type: mongoose.Schema.ObjectId,
         ref: 'Educator',
         required: true
     },
-    studentId: {
+    student: {
         type: mongoose.Schema.ObjectId,
         ref: 'student',
         required: true

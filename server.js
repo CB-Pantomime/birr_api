@@ -9,6 +9,9 @@ const connectDB = require('./config/db');
 // Route files
 const educators = require('./routes/educators');
 const students = require('./routes/students');
+const auth = require('./routes/auth');
+
+
 // Load environment variables
 dotenv.config({ path: './config/config.env' });
 
@@ -30,6 +33,8 @@ if(process.env.NODE_ENV === 'development') {
 // Mount routers
 app.use('/api/v1/educators', educators);
 app.use('/api/v1/students', students);
+app.use('/api/v1/auth', auth);
+
 
 const PORT = process.env.PORT || 5000;
 // Express .listen() is an abstraction of, and sits on top of,
