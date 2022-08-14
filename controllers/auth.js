@@ -45,7 +45,7 @@ exports.login = asyncHandler( async (req, res, next) => {
     // mongoose.js - .select() Specifies which document fields to include or
     // exclude (also known as the query "projection")
     // When using string syntax, prefixing a path with - will flag that path as     excluded. When a path does not have the - prefix, it is included. Lastly, if a path is prefixed with +, it forces inclusion of the path, which is useful for paths excluded at the schema level.
-    const educator = await educator.findOne({ email: email }).select('+password');
+    const educator = await Educator.findOne({ email: email }).select('+password');
 
     if(!educator) {
         return next(new ErrorResponse('Invalid credentials', 401));

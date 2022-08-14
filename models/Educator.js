@@ -85,6 +85,9 @@ EducatorSchema.methods.getSignedJwtToken = function() {
 
 // Match user entered password to hashed password in database
 EducatorSchema.methods.matchPassword = async function(enteredPassword) {
+  // .compare(data, encrypted, callback -optional)
+  // If cb is not specified, a Promise is returned if Promise support is available
+  // hence our async await wrapping the code block
   return await bcrypt.compare(enteredPassword, this.password);
 }
 
