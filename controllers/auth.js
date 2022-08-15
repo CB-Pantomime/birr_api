@@ -4,6 +4,7 @@ const asyncHandler = require('../middleware/async');
 const Educator = require('../models/Educator');
 
 
+
 // @desc        Register Educator
 // @route       POST /api/v1/auth/register
 // @access      Public
@@ -58,6 +59,7 @@ exports.login = asyncHandler( async (req, res, next) => {
         return next(new ErrorResponse('Invalid credentials', 401));
     }
 
+    // Gets TOKEN from model, creates COOKIE and sends RESPONSE
     sendTokenResponse(educator, 200, res);
 
 });
@@ -83,11 +85,13 @@ exports.login = asyncHandler( async (req, res, next) => {
 
 //  ****** BELOW EVERYTHING ELSE ******
 // Helper function, so at the bottom, below route handlers/controller methods
-// Get TOKEN from model, create COOKIE and send RESPONSE
-const sendTokenResponse = (educator, statusCode, res) => {
+// Gets TOKEN from model, creates COOKIE and sends RESPONSE
+const sendTokenResponse = (currentUser, statusCode, res) => {
 
-    // GET token
-    const token = educator.getSignedJwtToken();
+    // GET token from model passed in argument
+    // getSignedJwtToken() method accessed from our Model
+    // Sign JWT and return
+    const token = currentUser.getSignedJwtToken();
   
     const options = {
       expires: new Date( Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000 ), 
@@ -97,14 +101,20 @@ const sendTokenResponse = (educator, statusCode, res) => {
       httpOnly: true
     };
   
+    // If we are in production mode on server then create secure field in
+    // options and set to true
     if (process.env.NODE_ENV === 'production') {
       options.secure = true;
     }
   
     res
+        // passing in w/e statusCode passed in to parent function
       .status(statusCode)
         // .cookie(the key name, the actual token, the options)
+        // actual token = our const token ref to model passed in w/
+        // getSingedJwtToken() method in model
       .cookie('token', token, options)
+        // token is token, could write just 'token' ES6 style
       .json({ success: true , token: token })
 };
 

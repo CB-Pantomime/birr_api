@@ -30,5 +30,15 @@ const StudentSchema = new mongoose.Schema({
 });
 
 
+// StudentSchema.pre('save', async function(next) {
+
+
+//     // get logged in educator id
+//     // set that educator id to educator field 
+//     this.educator = req.educator.ObjectId
+// });
+
+
+
 
 module.exports = mongoose.model('Student', StudentSchema);

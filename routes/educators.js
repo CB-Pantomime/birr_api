@@ -15,20 +15,25 @@ const {
 // advancedResults(Educator, 'educator'),
 const router = express.Router();
 
+// Protect routes w/ signed in, authorized user, token in cookies
+const { protect } = require('../middleware/auth');
+
 router
     .route('/')
-        .get(getEducators)
+        .get(protect, getEducators)
+            // To be protected? Consider user flow when signing up and then 
+            // creating an educator account...
         .post(createEducator);
 
 router
     .route('/:id')
-        .get(getEducator)
-        .put(updateEducator)
-        .delete(deleteEducator)
+        .get(protect, getEducator)
+        .put(protect, updateEducator)
+        .delete(protect, deleteEducator)
 
 router
     .route('/:id/allStudents')
-        .get(getAllStudentsOneEducator);
+        .get(protect, getAllStudentsOneEducator);
 
 
         

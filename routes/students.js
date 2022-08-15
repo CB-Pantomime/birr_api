@@ -12,17 +12,20 @@ const {
 // const advancedResults = require('../middleware/advancedResults.js');
 // advancedResults(Student, 'works'),
 const router = express.Router();
+const Educator = require('../models/Educator.js');
+// Protect routes w/ signed in, authorized user, token in cookies
+const { protect } = require('../middleware/auth');
 
 router
     .route('/')
-        .get(getStudents)
-        .post(createStudent);
+        .get(protect, getStudents)
+        .post(protect, createStudent);
 
 router
     .route('/:id')
-        .get(getStudent)
-        .put(updateStudent)
-        .delete(deleteStudent)
+        .get(protect, getStudent)
+        .put(protect, updateStudent)
+        .delete(protect, deleteStudent)
 
 
 module.exports = router;

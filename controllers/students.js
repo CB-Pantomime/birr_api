@@ -2,6 +2,7 @@ const path = require('path');
 const advancedResults = require('../middleware/advancedResults');
 const asyncHandler = require('../middleware/async');
 const Student = require('../models/Student');
+const Educator = require('../models/Educator');
 
 // @desc        Get all students
 // @route       GET /api/v1/students
@@ -14,8 +15,6 @@ exports.getStudents = asyncHandler( async (req, res, next) => {
         data: students
     });
 });
-
-
 
 // @desc        Get single student
 // @route       GET /api/v1/students/:id
@@ -31,19 +30,22 @@ exports.getStudent = asyncHandler( async (req, res, next) => {
 
 });
 
-
-
 // @desc        Create student
 // @route       POST /api/v1/students
 // @access      Private
 exports.createStudent = asyncHandler( async (req, res, next) => {
 
-    
-     // This should be functional w/ auth ware up and running
-     // Add logged in user/educator to req.body
-     req.body.educator = req.educator.id;
+    req.body.educator = req.id       
     
     const newStudent = await Student.create(req.body);
+
+    // const addToEducatorSchema = await Educator.findByIdAndUpdate(
+    //     req.params.id, {
+    //     "students": newStudent.ObjectId
+    //     // add newly created Student ObjectId to logged in/auth Educator 
+    //     // Schema
+    // }
+    // );
 
     res
     .status(201).json({

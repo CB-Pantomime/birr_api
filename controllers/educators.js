@@ -2,6 +2,8 @@ const path = require('path');
 const advancedResults = require('../middleware/advancedResults');
 const asyncHandler = require('../middleware/async');
 const Educator = require('../models/Educator');
+const Student = require('../models/Student');
+
 
 // @desc        Get all educators
 // @route       GET /api/v1/educators
@@ -37,12 +39,22 @@ exports.getEducator = asyncHandler( async (req, res, next) => {
 // @route       GET /api/v1/educators/:id/allStudents
 // @access      Private
 exports.getAllStudentsOneEducator = asyncHandler( async (req, res, next) => {
+    // req.params.id
 
-    const allStudents = await Educator.findById(req.params.id).populate('students');
-    
+
+
+
+    // const allStudents = await Student.find({}, {
+    //     "_id": 0,
+    //     "educator": 1
+    // })
+    const educatorId = req.params.id;
+
+    const allStudents = await Student.find().where('educator').in(educatorId).exec() 
+
     res.status(200).json({
         success: true,
-        data: allStudents.students
+        data: allStudents
     });
 
 });
