@@ -1,7 +1,8 @@
 const crypto = require('crypto');
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+const mongoose = require('mongoose');
 
 const EducatorSchema = new mongoose.Schema({
 
@@ -100,6 +101,8 @@ EducatorSchema.methods.getResetPasswordToken = function() {
   // randomBytes() returns a buffer so, toString()
   // *****Study*****    What is buffer?
   // The Buffer class in Node.js is designed to handle raw binary data. Each buffer corresponds to some raw memory allocated outside V8. Buffers act somewhat like arrays of integers, but aren't resizable and have a whole bunch of methods specifically for binary data. The integers in a buffer each represent a byte and so are limited to values from 0 to 255 inclusive. When using console.log() to print the Buffer instance, you'll get a chain of values in hexadecimal values.
+
+  // All of this logic is coming from the Node.js crypto documentation
   const resetToken = crypto.randomBytes(20).toString('hex');
 
 

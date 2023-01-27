@@ -41,9 +41,6 @@ exports.getEducator = asyncHandler( async (req, res, next) => {
 exports.getAllStudentsOneEducator = asyncHandler( async (req, res, next) => {
     // req.params.id
 
-
-
-
     // const allStudents = await Student.find({}, {
     //     "_id": 0,
     //     "educator": 1
@@ -90,7 +87,7 @@ exports.updateEducator = asyncHandler( async (req, res, next) => {
         runValidators: true
         });
     
-    res.status(200).json({
+    res.status(201).json({
         success: true,
         data: educator 
     });

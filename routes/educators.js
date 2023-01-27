@@ -16,7 +16,9 @@ const {
 const router = express.Router();
 
 // Protect routes w/ signed in, authorized user, token in cookies
-const { protect } = require('../middleware/auth');
+const { protect, authorize } = require('../middleware/auth');
+// authorize('admin', 'educator'), 
+
 
 router
     .route('/')

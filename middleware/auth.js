@@ -7,6 +7,7 @@ const asyncHandler = require('./async');
 const ErrorResponse = require('../utils/errorResponse');
 // Educator (user) model that we will use our auth.js middleware upon
 const Educator = require('../models/Educator');
+const Student = require('../models/Student');
 
 // Protect routes
 exports.protect = asyncHandler( async (req, res, next) => {
@@ -43,13 +44,16 @@ exports.protect = asyncHandler( async (req, res, next) => {
         // JWT's .verify() method args = (the token, the secret, options, cb(err, decoded))
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+        console.log(decoded);
+
         req.id = await Educator.findById(decoded.id)
 
-        // TO BE LEVERAGED AGAINST THE UPCOMING STUDENT MODEL/collection
-        // if(!req.currentUser) {
-        //     req.currentUser = await Student.findById(decoded.id)
-        // }
-
+        // if req.id for educator not true then try for Student model
+        if(!req.id) {
+            console.log('Got student req id NOT educator')
+            req.id = await Student.findById(decoded.id)
+        }
+        
         next();
     } catch (err) {
         return next(new ErrorResponse('Not authorized', 401));
@@ -57,4 +61,16 @@ exports.protect = asyncHandler( async (req, res, next) => {
 
 });
 
+
+// Grant access to specific roles
+// exports.authorize = (...roles) => {
+    
+//     return (req, res, next) => {
+//         
+//         if(!roles.includes(HERE)) {
+//             return next(new ErrorResponse(`User role ${HERE} is not authorized to access this route`, 403));
+//         }
+//         next();
+//     }
+// };
 

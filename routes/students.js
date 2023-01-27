@@ -14,7 +14,8 @@ const {
 const router = express.Router();
 const Educator = require('../models/Educator.js');
 // Protect routes w/ signed in, authorized user, token in cookies
-const { protect } = require('../middleware/auth');
+const { protect, authorize } = require('../middleware/auth');
+// authorize('admin', 'educator', 'student'), 
 
 router
     .route('/')
@@ -26,6 +27,5 @@ router
         .get(protect, getStudent)
         .put(protect, updateStudent)
         .delete(protect, deleteStudent)
-
 
 module.exports = router;
